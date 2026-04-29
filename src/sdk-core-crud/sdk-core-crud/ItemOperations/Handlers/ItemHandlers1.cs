@@ -33,6 +33,8 @@ namespace sdk_core_crud.ItemOperations.Handlers
         protected override object GetFilterPropertyValue(BasicUser item) => item.Name ?? "";
         protected override BasicUser CreateNewItem(string name)
         {
+            //NOTE: In a real implementation, you would want to allow setting the password and status when creating a new user, but for this example we'll use default values.
+            //Never hardcode passwords in production code. This is just for demonstration purposes.
             return new BasicUser { Name = name, Status = BasicUserStatus.Enabled, Password = "TestPassword123!" };
         }
     }

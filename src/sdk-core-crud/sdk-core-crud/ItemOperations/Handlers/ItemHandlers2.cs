@@ -1,5 +1,3 @@
-using System.Web;
-using VideoOS.Platform.SDK.Core.Configuration;
 using VideoOS.Platform.SDK.Core.Configuration.Items;
 
 namespace sdk_core_crud.ItemOperations.Handlers
@@ -45,7 +43,7 @@ namespace sdk_core_crud.ItemOperations.Handlers
         protected override object GetEditablePropertyValue(Metadata item) => item.Description ?? "";
         protected override void SetEditablePropertyValue(Metadata item, object value) => item.Description = value?.ToString();
         protected override string GetFilterPropertyName() => "Name";
-        protected override object GetFilterPropertyValue(Metadata item) => HttpUtility.UrlEncode(item.Name ?? "");
+        protected override object GetFilterPropertyValue(Metadata item) => item.Name ?? "";
         protected override Metadata CreateNewItem(string name) => throw new NotSupportedException();
     }
 

@@ -1,5 +1,5 @@
-﻿using ConsoleAppCrud.ItemOperations;
-using ConsoleAppCrud.ItemOperations.Handlers;
+﻿using sdk_core_crud.ItemOperations;
+using sdk_core_crud.ItemOperations.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using VideoOS.Platform.SDK.Core.Extensions;
 
@@ -13,7 +13,8 @@ namespace sdk_core_crud
             services.AddMipServices();
             var serviceProvider = services.BuildServiceProvider();
 
-            var sessionHelper = new SessionHelper("https://dkws-apimipsdk2.milestone.dk", UserType.DefaultWindows);
+            // Create session. To change default values, modify the Session
+            var sessionHelper = new SessionHelper("http://localhost", UserType.DefaultWindows);
             var session = sessionHelper.CreateSession(serviceProvider);
 
             // Initialize all handlers

@@ -26,7 +26,6 @@ namespace sdk_core_crud.ItemOperations
             Console.WriteLine($"\n========== {ItemTypeName} Operations ==========\n");
 
             // Track original state for restoration
-            List<Guid> originalItemIds = new List<Guid>();
             Dictionary<Guid, object> originalPropertyValues = new Dictionary<Guid, object>();
             Guid? addedItemId = null;
 
@@ -36,7 +35,6 @@ namespace sdk_core_crud.ItemOperations
                 Console.WriteLine($"1. Retrieving all {ItemTypeName} items...");
                 var allItems = await session.Configuration.Get<T>();
                 var itemsList = allItems.ToList();
-                originalItemIds = itemsList.Select(i => i.Id).ToList();
                 
                 Console.WriteLine($"   Found {itemsList.Count} {ItemTypeName} item(s)");
                 foreach (var item in itemsList.Take(5))
@@ -65,16 +63,16 @@ namespace sdk_core_crud.ItemOperations
 
                 // Step 3: Retrieve items by property filter
                 Console.WriteLine($"\n3. Retrieving {ItemTypeName} items by property filter...");
-                var filterValue = GetFilterPropertyValue(firstItem);
+                var filterValue = GetFilterPropertyValue(firstItem).ToString()?.Split(" ").First() ?? "";
                 var propertyFilter = new Filter 
                 { 
                     Field = GetFilterPropertyName(), 
                     Value = filterValue,
-                    Operator = FilterOperator.Equal
+                    Operator = FilterOperator.Contains
                 };
                 var filteredItems = await session.Configuration.Get<T>(new[] { propertyFilter });
                 var filteredList = filteredItems.ToList();
-                Console.WriteLine($"   Found {filteredList.Count} {ItemTypeName} item(s) with {GetFilterPropertyName()} = {filterValue}");
+                Console.WriteLine($"   Found {filteredList.Count} {ItemTypeName} item(s) with {GetFilterPropertyName()} contains {filterValue}");
                 foreach (var item in filteredList.Take(3))
                 {
                     Console.WriteLine($"   - {GetDisplayName(item)}");
@@ -133,9 +131,8 @@ namespace sdk_core_crud.ItemOperations
                     Console.WriteLine($"   Deleted item with ID: {addedItemId}");
 
                     // Verify delete
-                    //TODO: The documentation claims we return null if item is not found. We throw exception instead. MAKE UP YOUR MIND
-                    var verifyDelete = result; // await session.Configuration.Get<T>(addedItemId.Value);
-                    if (verifyDelete) // verifyDelete == null
+                    var verifyDelete = result; 
+                    if (verifyDelete) 
                     {
                         Console.WriteLine($"   Verified deletion: Item no longer exists");
                         addedItemId = null; // Successfully deleted, no need to clean up
