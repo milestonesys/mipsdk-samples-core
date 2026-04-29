@@ -143,39 +143,19 @@ namespace sdk_core_crud.ItemOperations
                     Console.WriteLine($"\n5-6. Add/Delete operations not implemented for {ItemTypeName}");
                     Console.WriteLine("This can be due to the item type being a device type or because add/delete operations require additional properties that are not available in this simplified example.");
                 }
-
-                // Restoration: Restore edited property
-                Console.WriteLine($"\n========== Restoring Original State ==========");
-                Console.WriteLine($"Restoring edited properties...");
-                foreach (var kvp in originalPropertyValues)
-                {
-                    var itemToRestore = await session.Configuration.Get<T>(kvp.Key);
-                    if (itemToRestore != null)
-                    {
-                        SetEditablePropertyValue(itemToRestore, kvp.Value);
-                        await itemToRestore.Save();
-                        Console.WriteLine($"   Restored {GetEditablePropertyName()} for item {kvp.Key}");
-                    }
-                }
-
-                Console.WriteLine($"State restoration complete. System returned to original state.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\nError during {ItemTypeName} operations: {ex.Message}");
-                
-                // Attempt cleanup on error
+               
+            }
+            finally
+            {
+                // Attempt cleanup
                 try
                 {
-                    if (addedItemId.HasValue)
-                    {
-                        var itemToDelete = await session.Configuration.Get<T>(addedItemId.Value);
-                        if (itemToDelete != null)
-                        {
-                            await itemToDelete.Delete();
-                            Console.WriteLine($"Cleaned up added item {addedItemId}");
-                        }
-                    }
+                    Console.WriteLine($"\n========== Restoring Original State ==========");
+                    Console.WriteLine($"Restoring edited properties...");
 
                     foreach (var kvp in originalPropertyValues)
                     {
@@ -184,13 +164,26 @@ namespace sdk_core_crud.ItemOperations
                         {
                             SetEditablePropertyValue(itemToRestore, kvp.Value);
                             await itemToRestore.Save();
+                            Console.WriteLine($"   Restored {GetEditablePropertyName()} for item {kvp.Key}");
                         }
                     }
+                    if (addedItemId.HasValue)
+                    {
+                        Console.WriteLine($"Cleaning up added item with ID: {addedItemId}");
+                        var itemToDelete = await session.Configuration.Get<T>(addedItemId.Value);
+                        if (itemToDelete != null)
+                        {
+                            await itemToDelete.Delete();
+                            Console.WriteLine($"Cleaned up added item {addedItemId}");
+                        }
+                    }
+                    Console.WriteLine($"State restoration complete. System returned to original state.");
                 }
                 catch (Exception cleanupEx)
                 {
                     Console.WriteLine($"Error during cleanup: {cleanupEx.Message}");
                 }
+
             }
 
             Console.WriteLine($"\n========== {ItemTypeName} Operations Complete ==========\n");

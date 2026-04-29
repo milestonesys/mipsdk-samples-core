@@ -1,4 +1,3 @@
-using VideoOS.Platform.SDK.Core.Configuration;
 using VideoOS.Platform.SDK.Core.Configuration.Items;
 
 namespace sdk_core_crud.ItemOperations.Handlers

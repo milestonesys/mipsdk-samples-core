@@ -71,7 +71,7 @@ For each selected item type, the application performs the following sequence:
 
 1. **Retrieve All Items**: Lists all items of the selected type (shows first 5)
 2. **Retrieve by ID**: Fetches a single item using its unique identifier
-3. **Retrieve by Filter**: Queries items based on a property filter (e.g., Name equals specific value)
+3. **Retrieve by Filter**: Queries items based on a property filter (e.g., Name contains specific value)
 4. **Edit Property**: Modifies a property on an item and saves the change
 5. **Add Item** (if supported): Creates a new item with a timestamped name
 6. **Delete Item** (if supported): Removes the newly created item
@@ -113,8 +113,8 @@ This is achieved by:
 
 ## This sample demonstrates:
 
-- Establishing a session, and using the AddMipSdk extension method
+- Establishing a session, and using the AddMipServices extension method
 - Device types (Camera, Microphone, Speaker, Metadata, InputEvent, Output) are hardware-backed and cannot be arbitrarily created or deleted
 - Hardware items represent physical hardware and similarly cannot be added/deleted through the API
 - Most other types support full CRUD operations, but RecordingServer and Site do not, while AlarmDefinition is excluded because it requires extra information to perform a create
-- Property filtering uses the `Filter` class with `FilterOperator.Equal`
+- Property filtering uses the `Filter` class with `FilterOperator.Contains`
