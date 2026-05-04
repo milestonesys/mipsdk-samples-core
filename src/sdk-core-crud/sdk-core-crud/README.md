@@ -2,7 +2,7 @@
 
 ## Overview
 
-This console application demonstrates comprehensive CRUD (Create, Read, Update, Delete) operations on 19 configuration item types from the `VideoOS.Platform.SDK.Core` package.
+This console application demonstrates comprehensive CRUD (Create, Read, Update, Delete) operations on 19 configuration item types from the `MilestoneSystems.VideoOS.Platform.SDK.Core` package.
 
 ## Features
 
@@ -108,7 +108,7 @@ This is achieved by:
 
 ## Dependencies
 
-- VideoOS.Platform.SDK.Core
+- MilestoneSystems.VideoOS.Platform.SDK.Core
 - Microsoft.Extensions.DependencyInjection
 
 ## This sample demonstrates:
