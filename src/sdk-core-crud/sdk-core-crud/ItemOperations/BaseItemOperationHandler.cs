@@ -10,15 +10,14 @@ namespace sdk_core_crud.ItemOperations
     /// <typeparam name="T">The type of configuration item</typeparam>
     internal abstract class BaseItemOperationHandler<T> : IItemOperationHandler where T : ConfigurationItemBase, new()
     {
-        public abstract string ItemTypeName { get; }
+        public string ItemTypeName => typeof(T).Name;
         public abstract bool SupportsAddDelete { get; }
 
-        protected abstract string GetDisplayName(T item);
+        protected string GetDisplayName(T item) => item.Name ?? "Unnamed";
         protected abstract string GetEditablePropertyName();
         protected abstract object GetEditablePropertyValue(T item);
         protected abstract void SetEditablePropertyValue(T item, object value);
-        protected abstract string GetFilterPropertyName();
-        protected abstract object GetFilterPropertyValue(T item);
+        protected object GetFilterPropertyValue(T item) => item.Name ?? "";
         protected abstract T CreateNewItem(string name);
 
         public async Task ExecuteOperationsAsync(ISession session)
@@ -66,13 +65,13 @@ namespace sdk_core_crud.ItemOperations
                 var filterValue = GetFilterPropertyValue(firstItem).ToString()?.Split(" ").First() ?? "";
                 var propertyFilter = new Filter 
                 { 
-                    Field = GetFilterPropertyName(), 
+                    Field = "Name", 
                     Value = filterValue,
                     Operator = FilterOperator.Contains
                 };
                 var filteredItems = await session.Configuration.Get<T>(new[] { propertyFilter });
                 var filteredList = filteredItems.ToList();
-                Console.WriteLine($"   Found {filteredList.Count} {ItemTypeName} item(s) with {GetFilterPropertyName()} contains {filterValue}");
+                Console.WriteLine($"   Found {filteredList.Count} {ItemTypeName} item(s) with Name contains {filterValue}");
                 foreach (var item in filteredList.Take(3))
                 {
                     Console.WriteLine($"   - {GetDisplayName(item)}");

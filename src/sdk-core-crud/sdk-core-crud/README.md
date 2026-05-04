@@ -61,7 +61,7 @@ Abstract base class providing common CRUD logic for all handlers:
 - Error handling and cleanup
 
 #### Concrete Handlers
-19 specific handler implementations (in ItemHandlers1.cs through ItemHandlers4.cs), each configured for its specific item type.
+19 specific handler implementations (in ItemHandlers.cs), each configured for its specific item type.
 
 Some item types are excluded from this sample, such as ArchiveStorage and HardwareDriver which require looking them up through the RecordingServer item.
 
