@@ -27,9 +27,14 @@ The SDK package used by the samples is published on NuGet:
 
 ## Repository structure
 
-This repository will host sample source code and supporting material for SDK
-Core scenarios. As samples are added, each sample will be placed in its own
-folder together with any sample-specific README or setup notes.
+This respository is structured in one main directory as follows:
+```bash
+mipsdk-samples-core
+├── README.md
+├── LICENSE
+└── src
+    └── sdk-core-crud
+```
 
 ## Contributions
 
