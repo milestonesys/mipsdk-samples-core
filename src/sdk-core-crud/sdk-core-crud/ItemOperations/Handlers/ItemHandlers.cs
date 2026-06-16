@@ -225,5 +225,11 @@ namespace sdk_core_crud.ItemOperations.Handlers
         {
             return new UserDefinedEvent { Name = name };
         }
+
+        protected override UserDefinedEvent GetItemToEdit(List<UserDefinedEvent> items)
+        {
+            //Only events with the subtype "UserDefined" can be edited. Note that this means the program will report failure if there are no events with this subtype available.
+            return items.First(x => x.Subtype != null && x.Subtype.Equals("UserDefined", StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

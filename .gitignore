@@ -56,3 +56,4 @@ nunit-*.xml
 /src/sdk-core-crud/.vs/sdk-core-crud.slnx/v18
 *.v2
 /src/sdk-core-crud/.vs
+src/sdk-core-crud/nuget.config
