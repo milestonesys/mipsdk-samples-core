@@ -79,7 +79,7 @@ namespace sdk_core_crud.ItemOperations
 
                 // Step 4: Edit property and save
                 Console.WriteLine($"\n4. Editing property on {ItemTypeName} item...");
-                var itemToEdit = itemsList.First();
+                var itemToEdit = GetItemToEdit(itemsList);
                 var originalValue = GetEditablePropertyValue(itemToEdit);
                 originalPropertyValues[itemToEdit.Id] = originalValue;
                 
@@ -212,6 +212,11 @@ namespace sdk_core_crud.ItemOperations
             }
             
             return originalValue;
+        }
+
+        protected virtual T GetItemToEdit(List<T> items)
+        {
+            return items.First();
         }
     }
 }
