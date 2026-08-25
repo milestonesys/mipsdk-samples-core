@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK.Core" Version="1.1.0" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK.Core" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
