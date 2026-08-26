@@ -34,6 +34,7 @@ mipsdk-samples-core
 ├── LICENSE
 └── src
     └── sdk-core-crud
+    └── StableFpsRecorder
 ```
 
 ## Contributions
