@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +31,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>Convenience property used as default start-time in the XAML binding.</summary>
-    public string UtcNowMinus1Hour => DateTimeOffset.UtcNow.AddHours(-1).ToString("yyyy-MM-ddTHH:mm:ss");
+    public string UtcNowMinus1Hour => DateTimeOffset.UtcNow.AddHours(-1).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
 
     public MainWindow()
     {
@@ -191,7 +192,7 @@ public partial class MainWindow : Window
 
     private bool TryParseStartTime(out DateTimeOffset result)
     {
-        return DateTimeOffset.TryParse(StartTimeBox.Text.Trim(), out result);
+        return DateTimeOffset.TryParse(StartTimeBox.Text.Trim(), CultureInfo.InvariantCulture, out result);
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
